@@ -22,8 +22,8 @@ create table topics (
 
 create table comments (
 	id SERIAL PRIMARY KEY,
-	topic_id REFERENCES topics(id),
-	user_id REFERENCES users(id),
+	topic_id INTEGER NOT NULL REFERENCES topics(id),
+	user_id INTEGER NOT NULL REFERENCES users(id),
 	comments_text VARCHAR NOT NULL,
 	comments_image VARCHAR NOT NULL,
 	create_at TIMESTAMP
@@ -31,8 +31,19 @@ create table comments (
 
 create table votes (
 	id SERIAL PRIMARY KEY,
-	comment_id REFERENCES comments(id),
-	user_id REFERENCES users(id),
+	comment_id INTEGER NOT NULL REFERENCES comments(id),
+	user_id INTEGER NOT NULL REFERENCES users(id),
 	votes INTEGER default 0,
 	create_at TIMESTAMP
 );
+
+create table relevance (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER NOT NULL REFERENCES users(id),
+	topic_id INTEGER NOT NULL REFERENCES topics(id),
+	topic_point	INTEGER default 0,
+	comment_point INTEGER default 0,
+	vote_point INTEGER default 0, 
+	total_point INTEGER default 0 
+);
+
