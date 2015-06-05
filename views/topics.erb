@@ -13,6 +13,8 @@
 
 <% @topics.each do |topic| %>
 
+
+<!-- voting -->
 <div class="topic_row">
 	<div class="topic_column"> 
 		<form action="/vote" method="post">
@@ -22,13 +24,17 @@
 		<input type="submit" value ="down" name="<%=topic['topic_id']%>"></input>
 		</form>
 	</div>
+<!--voting -->
+
+<!-- topic -->
 	<div class="topic_column">
-		<a href="/topics/<%=topic['topic_id']%>">
-			<h3> <%=topic['topic_text']%> </h3>
+		<a href="/topics/<%=topic['id']%>">
+			<h3> <%=markdown(topic['topic_text'])%> </h3>
 		</a>
 	</div>
 		<div class="topic_column"> comments: #<%=topic['counter']%> 
 		</div>
+<!--	 -->
 </div>
 
 <% end %>

@@ -9,11 +9,11 @@ VALUES
 ('Mike1','password', 'mike1@yahoo.com','play big', CURRENT_TIMESTAMP);
 
 INSERT INTO topics 
-(category, topic_text, topic_image, user_id,create_at)
+(category, topic_text,user_id,create_at)
 VALUES
-('sports','Whos the best NBA Player of all time?', 'http://en.wikipedia.org/wiki/Michael_Jordan#/media/File:Michael_Jordan_in_2014.jpg', 1,CURRENT_TIMESTAMP),
-('software', 'whats most interesting computer language?','http://en.wikipedia.org/wiki/Computer#/media/File:Thinking_Machines_Connection_Machine_CM-5_Frostburg_2.jpg', 2,CURRENT_TIMESTAMP),
-('dance', 'Who is well known dance instructor in nyc?', 'http://en.wikipedia.org/wiki/Salsa_%28dance%29#/media/File:Salsa_en_Cali.jpg', 3,CURRENT_TIMESTAMP);
+('sports','Whos the best NBA Player of all time?', 1,CURRENT_TIMESTAMP),
+('software', 'whats most interesting computer language?', 2,CURRENT_TIMESTAMP),
+('dance', 'Who is well known dance instructor in nyc?', 3,CURRENT_TIMESTAMP);
 
 INSERT INTO comments
 (topic_id, user_id, comments_text, create_at) 

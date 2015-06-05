@@ -14,6 +14,7 @@ module Bobo
 	end
 
 	get '/' do
+		binding.pry
 		redirect '/topics'
 	end
 
@@ -24,7 +25,7 @@ module Bobo
 		#showing comments from db 
 		# show all topics
 		# with links to all the comments for that topic
-		@topics = $db.exec_params("select distinct topic_text, count(comments_text) AS counter, topic_id,vote FROM topics LEFT JOIN comments ON topics.id = comments.topic_id GROUP BY topic_text, topic_id, vote order by vote desc;;")
+		@topics = $db.exec_params("select distinct topic_text, count(comments_text) AS counter, topics.id,vote FROM topics LEFT JOIN comments ON topics.id = comments.topic_id GROUP BY topics.topic_text, topics.id, vote order by vote desc;;")
 
 		binding. pry 
 		erb :topics 	
@@ -45,14 +46,17 @@ module Bobo
 
 
 	post '/newtopic' do
+		# adding user and topic content to the topics table, redirect to topics
+
 		if session[:user_id]!= nil
 			
 			user = $db.exec_params("SELECT id from users where user_id = $1", [session[:user_id]]).first
 			id = user['id'].to_i
 		
-			update = $db.exec_params("INSERT INTO topics (category, topic_text, topic_image, user_id) VALUES ($1, $2, $3, $4)",[params[:category], params[:text], params[:image],id])
+			update = $db.exec_params("INSERT INTO topics (category, topic_text, user_id) VALUES ($1,$2,$3);",[params[:category],params[:text],id])
 				binding.pry
 		redirect '/topics'
+		#if user is not logged in, then redirect to login page. 
 		else
 			redirect '/login' 
 		end
@@ -85,12 +89,15 @@ module Bobo
 
 	# adding comment 
 	post '/newcomment' do
+			binding.pry
 				user = session[:user_id]
 				query = $db.exec_params('SELECT id from users where user_id = $1',[user]).first
-				@user = query['id'].to_i
-				id=$topic['id']
+				
+
 		if session[:user_id]!=nil
-			$db.exec_params('INSERT INTO comments (topic_id, user_id, comments_text, comments_image) VALUES ($1,$2,$3,$4);',[$topic['id'], @user, params['text'], params['image']])
+			@user = query['id'].to_i
+			id=$topic['id']
+			$db.exec_params('INSERT INTO comments (topic_id, user_id, comments_text) VALUES ($1,$2,$3);',[$topic['id'], @user, params['text']])
 			redirect "/topics/#{id}"
 		else 
 			erb :login
@@ -115,9 +122,6 @@ module Bobo
 		 	end
 		 	
 	end
-
-
-
 
 	end	#Server
 end	#Bobo
