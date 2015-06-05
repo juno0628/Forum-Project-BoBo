@@ -4,6 +4,7 @@ require 'pry'
 require 'pg'
 require_relative 'server'
 
+use Rack::MethodOverride
 
 run Bobo::Server
 

@@ -1,0 +1,27 @@
+body {
+	background-color: skyblue;
+	text-align: center;
+	font-family: helvetica;
+}
+
+
+.comment {
+	display: inline-block;
+	background-color: #F2F5F7;
+
+}
+
+.topic_row {
+	clear: both;
+	border: solid black 1px;
+}
+
+.topic_column {
+	float: left;
+	width: 29%;
+	left: 2%;
+	position: relative;
+	top: 10%;
+	text-align: center;
+
+}

@@ -1,0 +1,14 @@
+
+
+<% if $topic['topic_text'] != nil %>
+<h1><%= $topic['topic_text'] %></h1>
+<% end %> 
+
+<% @comments.each do |comment| %>
+<div class="comment_box">
+<h3> <%=comment['comments_text']%> </h3>
+</div>
+<% end %>
+
+<a href="/comment">Add a comment</a>
+<a href="/topics">Go back to list</a>
