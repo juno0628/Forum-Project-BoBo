@@ -11,9 +11,9 @@ VALUES
 INSERT INTO topics 
 (category, topic_text,user_id,create_at)
 VALUES
-('sports','Whos the best NBA Player of all time?', 1,CURRENT_TIMESTAMP),
-('software', 'whats most interesting computer language?', 2,CURRENT_TIMESTAMP),
-('dance', 'Who is well known dance instructor in nyc?', 3,CURRENT_TIMESTAMP);
+('sports','Who is the best NBA Player of all time?', 1,CURRENT_TIMESTAMP),
+('software', 'what is most interesting computer language?', 2,CURRENT_TIMESTAMP),
+('dance', 'Who is popular dance instructor in nyc?', 3,CURRENT_TIMESTAMP);
 
 INSERT INTO comments
 (topic_id, user_id, comments_text, create_at) 

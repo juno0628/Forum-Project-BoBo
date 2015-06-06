@@ -3,6 +3,8 @@
 <!--  -->
 <!-- Show topics and link topics to comments page  -->
 
+<a href="/chart">charts page</a>
+
 <% if session[:user_id] != nil %>
 <h4><%= "You're logged in as #{session[:user_id]}"%></h4>
 <% else %>
@@ -16,24 +18,26 @@
 
 <!-- voting -->
 <div class="topic_row">
-	<div class="topic_column"> 
-		<form action="/vote" method="post">
-		<p>vote: <%=topic['vote']%></p>
-
-		<input type="submit" value ="up" name="<%=topic['topic_id']%>"></input>
-		<input type="submit" value ="down" name="<%=topic['topic_id']%>"></input>
+	<div class="topic_column" id="t1"> 
+		<form class="voting" action="/vote" method="post">
+		<input class="voter" type="submit" value ="up" name="<%=topic['id']%>"></input>
+		<span class="vote">vote: <%=topic['vote']%></span>
+		<input class="voter" type="submit" value ="down" name="<%=topic['id']%>"></input>
 		</form>
 	</div>
 <!--voting -->
 
 <!-- topic -->
-	<div class="topic_column">
+	<div class="main_column">
 		<a href="/topics/<%=topic['id']%>">
-			<h3> <%=markdown(topic['topic_text'])%> </h3>
+			<h3 class="topic_text"> <%=markdown(topic['topic_text'])%> </h3>
+		</a>
+		<p> <%=topic['location'] %> </p>
+	</div>
+	<div class="topic_column"> 
+		<a href="/topics/<%=topic['id']%>"><p>comments: #<%=topic['counter']%> </p>
 		</a>
 	</div>
-		<div class="topic_column"> comments: #<%=topic['counter']%> 
-		</div>
 <!--	 -->
 </div>
 

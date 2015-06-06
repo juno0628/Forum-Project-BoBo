@@ -1,12 +1,16 @@
 
 
 <% if $topic['topic_text'] != nil %>
-<h1><%= $topic['topic_text'] %></h1>
+<h1><%= markdown($topic['topic_text']) %></h1>
 <% end %> 
 
 <% @comments.each do |comment| %>
 <div class="comment_box">
-<h3> <%=comment['comments_text']%> </h3>
+<h3> <%=markdown(comment['comments_text'])%> </h3>
+<span><%=comment['create_at'] + " |"%></span>
+<span><%=comment['userid'] + " |"%> </span>
+<span><%=comment['location']%></span>
+
 </div>
 <% end %>
 

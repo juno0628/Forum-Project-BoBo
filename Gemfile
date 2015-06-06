@@ -7,4 +7,6 @@ gem 'sinatra-contrib'
 gem 'redcarpet'
 gem 'pry'
 gem 'pg'
-
+gem 'json'
+gem 'rest-client'
+gem 'restclient'
