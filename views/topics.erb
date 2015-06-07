@@ -3,10 +3,14 @@
 <!--  -->
 <!-- Show topics and link topics to comments page  -->
 
-<a href="/chart">charts page</a>
+<a href="/chart">charts</a>
 
 <% if session[:user_id] != nil %>
 <h4><%= "You're logged in as #{session[:user_id]}"%></h4>
+ <form method="post" action="/logout">
+ 
+<input type="hidden" name="_method" value="delete"></input>
+<input type="submit" value="Logout"></input>
 <% else %>
 <a href="/login"><%="Sign in to Bobo?"%></a>
 <% end %>
