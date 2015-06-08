@@ -11,7 +11,6 @@ module Bobo
 		register Sinatra::Reloader
 		end
 
-
 		# user login
 		def current_user
 				session[:user_id]
@@ -44,6 +43,7 @@ module Bobo
 		get '/topics' do
 			#retrieving user location info and parse to ruby
 			user_id = session[:user_id]
+			
 			url = 'http://ipinfo.io/json'
 			json_ipinfo = RestClient.get(url)
 			data=JSON.parse(json_ipinfo)
@@ -58,10 +58,12 @@ module Bobo
 
 		post '/vote' do
 			@id = params.keys.first.to_i
-			if logged_in? && params.values.first == 'up' 
-				vote = $db.exec_params("UPDATE topics SET vote = vote + 1 where id = $1;", [@id])
+			
+			if params.values.first == 'up' 
+				vote = $db.exec_params("UPDATE topics SET vote = vote + 1 where id=$1;",[@id])
+				
 				redirect '/topics'
-			elsif logged_in?&&params.values.first == 'down'
+			elsif params.values.first == 'down'
 				vote = $db.exec_params("UPDATE topics SET vote = vote - 1 where id = $1;", [@id])
 				redirect '/topics'
 			else 
@@ -72,7 +74,7 @@ module Bobo
 
 		post '/newtopic' do
 			# adding user and topic content to the topics table, redirect to topics
-
+			
 			if session[:user_id]!= nil
 				user = $db.exec_params("SELECT id from users where user_id = $1", [session[:user_id]]).first
 				id = user['id'].to_i
@@ -100,7 +102,6 @@ module Bobo
 			$topic = $db.exec_params("SELECT * from topics where id = $1",[@id]).first
 			
 			@comments = $db.exec_params("SELECT comments.*, users.user_id AS userid from comments LEFT JOIN users ON comments.user_id = users.id where topic_id = $1",[@id])
-			
 			erb :comments
 		end
 
@@ -111,38 +112,30 @@ module Bobo
 		end
 
 		# adding comment 
-		post '/newcomment' do
-				
+		post '/newcomment' do	
+			
 					user = session[:user_id]
-					query = $db.exec_params('SELECT id from users where user_id = $1',[user]).first
-					
-
+					query = $db.exec_params("SELECT id from users where user_id = $1",[user]).first
 			if session[:user_id]!=nil
 				@user = query['id'].to_i
 				id=$topic['id']
-				$db.exec_params('INSERT INTO comments (topic_id, user_id, comments_text, location) VALUES ($1,$2,$3, $4);',[$topic['id'], @user, params['text'], $location])
+				$db.exec_params("INSERT INTO comments (topic_id, user_id, comments_text, location) VALUES ($1,$2,$3, $4);",[$topic['id'], @user, params['text'], $location])
 				redirect "/topics/#{id}"
 			else 
 				erb :login
 			end 
 		end
 
-
-
 		# login set up linked with login page
 		post '/login' do
-			
-			 user = $db.exec_params('SELECT * from users where user_id = $1 and password = $2', [params[:user_id],params[:password]]).first
-			
-			 if user && user['password'] == params[:password]
+			user = $db.exec_params('SELECT * from users where user_id = $1 and password = $2', [params[:user_id],params[:password]]).first
+			if user && user['password'] == params[:password]
 			 	session[:user_id] = user['user_id']
-			 	
 			 	 redirect '/topics'
-
-			 	else 
+			else 
 			 		@msg = "Incorrect Login ID or Password"
 			 		erb :login
-			 	end
+			end
 			 	
 		end
 
