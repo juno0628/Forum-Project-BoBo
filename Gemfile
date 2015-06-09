@@ -3,10 +3,13 @@ source "https://rubygems.org"
 
 # gem "rails"
 gem 'sinatra'
-gem 'sinatra-contrib'
 gem 'redcarpet'
-gem 'pry'
 gem 'pg'
 gem 'json'
 gem 'rest-client'
 gem 'restclient'
+
+group :development do
+	gem 'pry'
+	gem 'sinatra-contrib'
+end

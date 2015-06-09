@@ -1,8 +1,22 @@
 require 'rest-client'
-require_relative 'connections'
+require 'pg'
 
 module Bobo
 	class Server < Sinatra::Base
+		configure :development do
+      $db = PG.connect dbname: "bobo", host: "localhost"
+    end
+
+    configure :production do
+      require 'uri'
+      uri = URI.parse ENV["DATABASE_URL"]
+      $db = PG.connect dbname: uri.path[1..-1],
+                         host: uri.host,
+                         port: uri.port,
+                         user: uri.user,
+                     password: uri.password
+    end
+
 		$topic; 
 		$location; 
 		set :sessions, true
