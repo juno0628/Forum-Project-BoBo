@@ -1,4 +1,4 @@
-reate table users (
+create table users (
 	id SERIAL PRIMARY KEY,
 	user_id VARCHAR NOT NULL,
 	password VARCHAR NOT NULL,
