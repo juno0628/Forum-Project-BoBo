@@ -21,7 +21,7 @@ module Bobo
 		$location; 
 		set :sessions, true
 		enable :method_overide
-		configure do 
+		configure :development do 
 		register Sinatra::Reloader
 		end
 
