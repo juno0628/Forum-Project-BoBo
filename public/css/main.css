@@ -2,11 +2,20 @@
 
 header {
 	font-size: 25px;
-	background-image: url('/image/boxing.gif');
-	background-size: 22.5%;
-	background-repeat: no-repeat;
-	background-position: center;
+	border: 0;
+	padding: 0;
+	background-color: rgba(62,24,4,0.3);
 }
+
+img.topic{
+	opacity: 0.1;
+}
+
+img.topic:hover{
+	opacity: 1;
+}
+
+
 
 .first_column_box {
 	position: relative;
@@ -14,34 +23,43 @@ header {
 }
 
 body {
-	background-color: #D1E3F7;
+	background: url('http://i.imgur.com/2r3DT8V.jpg'), rgba(255,255,255,0.1);
+	background-size: 25%;
+	background-repeat: no-repeat;
+	background-position: right bottom;
 	text-align: center;
 	font-family: 'Rhodium Libre', serif;
 }
 
+.container {
+	border-bottom: dashed black 2.5px;
+}
+
 /*topics page*/
+/*==============================================================*/
 .comment {
 	display: inline-block;
-	background-color: #F2F5F7;
+	
 
 }
 
 .topic_row {
 	clear: both;
-	border-bottom: solid #50CBFB 3.5px;
+	border-top: solid #CD808F 2.5px;
 }
 
 h3 .topic_text {
-	background-color: #CFD2D6;
-	cursor: pointer
+	opacity: 1;
+	cursor: pointer;
 }
 
 .voter {
 	cursor: pointer;
-	background-color: #CFD2D6;
+	
 }
 
 .topic_column {
+	opacity: 1;
 	float: left;
 	width: 13%;
 	left: 2%;
@@ -51,8 +69,8 @@ h3 .topic_text {
 }
 
 .main_column{
-	border-left: solid #50CBFB 3.5px;
-	border-right: solid #50CBFB 3.5px;
+	border-left: dashed #50CBFB 3.5px;
+	border-right: dashed #50CBFB 3.5px;
 	float: left;
 	width: 60%;
 	left: 2%;
@@ -60,27 +78,29 @@ h3 .topic_text {
 	top: 10%;
 	text-align: center;
 }
-
+/*==============================================================*/
 /*comments page*/
 
 .comment_box {
 	position: relative;
 	top: 20%;
-	left: 15%;
-	width: 70%;
+	left: 20%;
+	width: 50%;
 	border-radius: 30px;
-	border-bottom: solid #50CBFB 11.5px;
-	background-color: #CFD2D6;
+		border-top: solid #CD808F 2.5px;
+		border-left: solid #CD808F 2.5px; 
+		border-right: solid #50CBFB 2.5px;
+		border-bottom: solid #50CBFB 11.5px;
 	text-align: center;
 }
-
+/*==============================================================*/
 /*topics page*/
 .topicpage{
 	font-family: 'Rhodium Libre', serif;
 	font-size: 20px;
 	position: absolute;
 	left: 20%;
-	top: 20%;
+	top: 30%;
 	width: 80%;
 	line-height: 35px;
 }
@@ -103,3 +123,5 @@ h3 .topic_text {
 	right: 10%;
 	line-height: 55px;
 }
+
+/*==============================================================*/
