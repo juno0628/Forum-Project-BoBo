@@ -2,21 +2,20 @@
 
 <!--  -->
 <!-- Show topics and link topics to comments page  -->
-
+<a href="/chart"><img class="topic" src="/image/pa.jpg" style="width: 30%"></a>
+<br>
 <a href="/chart">charts</a>
-
+<br>
 <% if session[:user_id] != nil %>
-<h4><%= "You're logged in as #{session[:user_id]}"%></h4>
- <form method="post" action="/logout">
- 
-<input type="hidden" name="_method" value="delete"></input>
-<input type="submit" value="Logout"></input>
+	<h4><%= "You're logged in as #{session[:user_id]}"%></h4>
+ 	<form method="post" action="/logout">
+ 		<input type="hidden" name="_method" value="delete"></input>
+		<input type="submit" value="Logout"></input>
 <% else %>
-<a href="/login"><%="Sign in to Bobo?"%></a>
+	<a href="/login"><%="Sign in to Bobo?"%></a>
 <% end %>
-
+<br>
 <a href="/newtopic">Add New Topic</a>
-
 <% @topics.each do |topic| %>
 
 
