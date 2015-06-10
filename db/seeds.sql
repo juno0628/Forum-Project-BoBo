@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS topics;
+DROP TABLE IF EXISTS users;
+
 create table users (
 	id SERIAL PRIMARY KEY,
 	user_id VARCHAR NOT NULL,
