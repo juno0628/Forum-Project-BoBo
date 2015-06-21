@@ -71,12 +71,12 @@ module Bobo
 		end
 
 		post '/vote' do
-			@id = params.keys.first.to_i
+			id = params.keys.first.to_i
 			if params.values.first == 'up' 
-				vote = $db.exec_params("UPDATE topics SET vote = vote + 1 where id=$1;",[@id])
+				vote = $db.exec_params("UPDATE topics SET vote = vote + 1 where id=$1;",[id])
 				redirect '/topics'
 			elsif params.values.first == 'down'
-				vote = $db.exec_params("UPDATE topics SET vote = vote - 1 where id = $1;", [@id])
+				vote = $db.exec_params("UPDATE topics SET vote = vote - 1 where id = $1;", [id])
 				redirect '/topics'
 			else 
 				redirect '/login'
@@ -84,7 +84,7 @@ module Bobo
 		end
 
 
-		post '/newtopic' do
+		post '/topic' do
 			# adding user and topic content to the topics table, redirect to topics
 			if session[:user_id]!= nil
 				user = $db.exec_params("SELECT id from users where user_id = $1", [session[:user_id]]).first
@@ -99,7 +99,7 @@ module Bobo
 		end
 
 			# adding new topic 
-		get '/newtopic' do
+		get '/topics/new' do
 			erb :topic
 		end
 			# login page 
@@ -109,27 +109,27 @@ module Bobo
 
 		get '/topics/:id' do
 			# show all the comments for a topic
-			@id = params[:id]
-			$topic = $db.exec_params("SELECT * from topics where id = $1",[@id]).first
+			id = params[:id]
+			$topic = $db.exec_params("SELECT * from topics where id = $1",[id]).first
 			
-			@comments = $db.exec_params("SELECT comments.*, users.user_id AS userid from comments LEFT JOIN users ON comments.user_id = users.id where topic_id = $1",[@id])
+			@comments = $db.exec_params("SELECT comments.*, users.user_id AS userid from comments LEFT JOIN users ON comments.user_id = users.id where topic_id = $1",[id])
 			erb :comments
 		end
 
 
 		# adding comment 
-		get '/comment' do
+		get '/comments/new' do
 		 erb :comment
 		end
 
 		# adding comment 
-		post '/newcomment' do	
+		post '/comments' do	
 					user = session[:user_id]
 					query = $db.exec_params("SELECT id from users where user_id = $1",[user]).first
 			if session[:user_id]!=nil
-				@user = query['id'].to_i
+				user = query['id'].to_i
 				id=$topic['id']
-				$db.exec_params("INSERT INTO comments (topic_id, user_id, comments_text, location) VALUES ($1,$2,$3, $4);",[$topic['id'], @user, params['text'], $location])
+				$db.exec_params("INSERT INTO comments (topic_id, user_id, comments_text, location) VALUES ($1,$2,$3, $4);",[$topic['id'], user, params['text'], $location])
 				redirect "/topics/#{id}"
 			else 
 				erb :login
@@ -149,11 +149,11 @@ module Bobo
 			 	
 		end
 
-		get '/newuser' do
+		get '/users/new' do
 			erb :signup
 		end
 
-		post '/newuser' do
+		post '/users' do
 			$db.exec_params("INSERT INTO USERS (user_id, password, user_email, fullname) VALUES ($1,$2,$3,$4)",[params['user_id'], params['password'], params['user_email'], params['fullname']])
 			redirect '/login'
 		end
