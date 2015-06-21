@@ -3,8 +3,10 @@ require 'pg'
 
 module Bobo
 	class Server < Sinatra::Base
+
 		configure :development do
       $db = PG.connect dbname: "bobo", host: "localhost"
+      register Sinatra::Reloader
     end
 
     configure :production do
@@ -21,11 +23,7 @@ module Bobo
 		$location; 
 		set :sessions, true
 		enable :method_overide
-		configure :development do 
-		register Sinatra::Reloader
-		end
-
-
+	
 		# user login
 		def current_user
 				session[:user_id]
@@ -38,16 +36,21 @@ module Bobo
 
     # chart page to see each user's contribution 
 		get '/chart' do 
+			
 			@chart_data = $db.exec_params("SELECT users.user_id, count(distinct topics.id) AS number_of_topic, count(distinct comments.id) AS number_of_comment FROM topics INNER JOIN users ON topics.user_id = users.id LEFT JOIN comments ON comments.user_id = users.id group by users.user_id;").entries
+			
 			@label = @chart_data.map do |row|
 				row['user_id']
 			end
+
 			@topic = @chart_data.map do |row|
 				row['number_of_topic']
 			end
+			
 			@comment = @chart_data.map do |row|
 				row['number_of_comment']
 			end
+			
 			erb :chart
 		end
 
@@ -72,6 +75,7 @@ module Bobo
 
 		post '/vote' do
 			id = params.keys.first.to_i
+			
 			if params.values.first == 'up' 
 				vote = $db.exec_params("UPDATE topics SET vote = vote + 1 where id=$1;",[id])
 				redirect '/topics'
@@ -145,8 +149,7 @@ module Bobo
 			else 
 			 		@msg = "Incorrect Login ID or Password"
 			 		erb :login
-			end
-			 	
+			end 	
 		end
 
 		get '/users/new' do

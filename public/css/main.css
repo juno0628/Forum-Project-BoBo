@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Rhodium+Libre);
+@import url(http://fonts.googleapis.com/css?family=Exo+2:300);
 
 header {
 	font-size: 25px;
@@ -15,8 +15,6 @@ img.topic:hover{
 	opacity: 1;
 }
 
-
-
 .first_column_box {
 	position: relative;
 	top: 80%;
@@ -28,7 +26,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: right bottom;
 	text-align: center;
-	font-family: 'Rhodium Libre', serif;
+	font-family: 'Exo 2', sans-serif;
 }
 
 .container {
@@ -96,7 +94,6 @@ h3 .topic_text {
 /*==============================================================*/
 /*topics page*/
 .topicpage{
-	font-family: 'Rhodium Libre', serif;
 	font-size: 20px;
 	position: absolute;
 	left: 20%;
